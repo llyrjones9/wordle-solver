@@ -12,11 +12,11 @@ for attempt in range(6):
 	srmat = {}
     
     # Set a list of eligible guesses
-	candidate_guesses = eligible_guesses
+	candidate_guesses = eligible_guesses[:100]
     
     # Choose 'snare' as first guess
 	if attempt == 0:
-		candidate_guesses = ["snare"]
+		candidate_guesses = ["value"]
 
     # Cycle through eligible guesses
 	for candidate_guess in candidate_guesses:
@@ -28,20 +28,19 @@ for attempt in range(6):
 			match_code = [0] * 5
             
             # Check if letter is in the right place
-			for c_ind in range(5):
-				if candidate_guess[c_ind] == tw2[c_ind]:
-					match_code[c_ind] = 2
-					tw2 = tw2[:c_ind] + "*" + tw2[c_ind+1:]
+			for char_idx in range(5):
+				if candidate_guess[char_idx] == tw2[char_idx]:
+					match_code[char_idx] = 2
+					tw2 = tw2[:char_idx] + "*" + tw2[char_idx+1:]
                     
             # Check if letter is in the word at all
-			for c_ind in range(5):
-				if candidate_guess[c_ind] in tw2 and match_code[c_ind] == 0:
-					match_code[c_ind] = 1
-					ind_app = tw2.find(candidate_guess[c_ind])
+			for char_idx in range(5):
+				if candidate_guess[char_idx] in tw2 and match_code[char_idx] == 0:
+					match_code[char_idx] = 1
+					ind_app = tw2.find(candidate_guess[char_idx])
 					tw2 = tw2[:ind_app] + "*" + tw2[ind_app+1:]
                     
             # Add pattern to the matrix of possible patterns
-            
             # This happens if that pattern is absent
 			if tuple(match_code) not in rmat:
 				rmat[tuple(match_code)] = [potential_solution]
@@ -63,15 +62,12 @@ for attempt in range(6):
 			chosen_word = candidate_guess
 			srmat = rmat
 		
-	print(chosen_word)
-	inp = input()
-	feedback = tuple([int(el) for el in inp.split(",")])
+	print(f'\n\nThe next guess is {chosen_word.upper()}\n')
+	inp = input('Please enter the Wordle response.\n')
+	feedback = tuple(map(int, inp))
 	potential_solutions = srmat[feedback]
     
     # If only one word remains, it's the solution
 	if len(potential_solutions) == 1:
-		print("Done. Final word is {}".format(potential_solutions[0]))
-		exit(0)
-
-print("Failed. Did not find word after 6 attempts")
-
+		print(f'\n\nFinished.\nThe solution is {potential_solutions[0].upper()}')
+		break
