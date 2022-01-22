@@ -4,7 +4,8 @@ esl = open("eligible_solutions_list.txt", "r")
 eligible_guesses = egl.readlines()
 potential_solutions = esl.readlines()
 
-initial_guess = 'roate'
+initial_guess = 'lager'
+target = 'tiger'
 
 # Loop through for up to 6 guesses
 for attempt in range(6):
@@ -69,9 +70,11 @@ for attempt in range(6):
     # Propose the next guess to the user
 	print(f'\n\nThe next guess is {chosen_word.upper()}\n')
     
-    # Ask for the result of that guess
-	inp = input('Please enter the Wordle response.\n')
-	feedback = tuple(map(int, inp))
+    # Find the pattern for the target word 
+	for pattern, words in chosen_pattern_dict.items():
+		if target in list(map(str.strip, words)):
+			feedback = pattern
+			break
     
     # Trim the list of potential solutions by selecting the appropriate
     # list from the pattern dictionary
