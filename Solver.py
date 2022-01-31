@@ -37,6 +37,8 @@ for attempt in range(6):
 					match_code[char_idx] = 2
 					temp_ps = temp_ps[:char_idx] + "*" + temp_ps[char_idx+1:]
                     
+			for char_idx in range(5):
+				
             # Check if letter is in the word at all
 				if candidate_guess[char_idx] in temp_ps and match_code[char_idx] == 0:
 					match_code[char_idx] = 1
