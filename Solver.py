@@ -1,8 +1,8 @@
 # Import the guessable words list
-egl = open("eligible_guesses_list.txt", "r")
-esl = open("eligible_solutions_list.txt", "r")
-eligible_guesses = egl.readlines()
-potential_solutions = esl.readlines()
+import eligible_guesses_list
+import eligible_solutions_list
+eligible_guesses = eligible_guesses_list.eligible_guesses
+potential_solutions = eligible_solutions_list.potential_solutions
 
 initial_guess = 'roate'
 
@@ -38,7 +38,7 @@ for attempt in range(6):
 					temp_ps = temp_ps[:char_idx] + "*" + temp_ps[char_idx+1:]
                     
 			for char_idx in range(5):
-				
+
             # Check if letter is in the word at all
 				if candidate_guess[char_idx] in temp_ps and match_code[char_idx] == 0:
 					match_code[char_idx] = 1
