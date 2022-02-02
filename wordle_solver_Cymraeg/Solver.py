@@ -4,7 +4,7 @@ import eligible_solutions_list
 eligible_guesses = eligible_guesses_list.eligible_guesses
 potential_solutions = eligible_solutions_list.potential_solutions
 
-initial_guess = 'roate'
+initial_guess = 'CORFF'
 
 # Loop through for up to 6 guesses
 for attempt in range(6):
@@ -14,7 +14,7 @@ for attempt in range(6):
 	srmat = {}
     
     # Set a list of eligible guesses
-	candidate_guesses = eligible_guesses[:100]
+	candidate_guesses = eligible_guesses
     
     # Choose 'snare' as first guess
 	if attempt == 0:
@@ -74,6 +74,10 @@ for attempt in range(6):
     # Ask for the result of that guess
 	inp = input('Please enter the Wordle response.\n')
 	feedback = tuple(map(int, inp))
+
+	if feedback == tuple([2]*5):
+		print(f'Hole in one! The solution was {initial_guess}.')
+		break
     
     # Trim the list of potential solutions by selecting the appropriate
     # list from the pattern dictionary
