@@ -16,7 +16,7 @@ for attempt in range(6):
     # Set a list of eligible guesses
 	candidate_guesses = eligible_guesses
     
-    # Choose 'snare' as first guess
+    # Choose 'VALUE' as first guess
 	if attempt == 0:
 		candidate_guesses = [initial_guess]
 

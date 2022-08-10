@@ -4,7 +4,7 @@ import eligible_solutions_list
 eligible_guesses = eligible_guesses_list.eligible_guesses
 potential_solutions = eligible_solutions_list.potential_solutions
 
-initial_guess = 'CORFF'
+initial_guess = 'buwch'
 
 # Loop through for up to 6 guesses
 for attempt in range(6):
@@ -16,7 +16,7 @@ for attempt in range(6):
     # Set a list of eligible guesses
 	candidate_guesses = eligible_guesses
     
-    # Choose 'snare' as first guess
+    # Choose 'BUWCH' as first guess
 	if attempt == 0:
 		candidate_guesses = [initial_guess]
 

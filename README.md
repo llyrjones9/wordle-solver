@@ -1,3 +1,5 @@
+This repositary is a solver for the online game "Wordle", which became popular in late 2021. A greedy algorithm is used to determine the best next word after each guess, by minimising the worst case remaining possibilities, that is, maximising the number of words that have already been ruled out. The word lists were taken as a snapshot during Autumn 2021 from "Wordle" website's source code, therefore are not nessesarily current.
+
 Wordle solver run instruction:
 
 The script outputs the first word to enter into wordle.
