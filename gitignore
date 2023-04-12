@@ -1,6 +1,6 @@
 # User Added
 /.vscode
-*ipynb
+*.ipynb
 **/__pycache__/
 
 # Byte-compiled / optimized / DLL files
