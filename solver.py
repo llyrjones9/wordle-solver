@@ -1,49 +1,62 @@
-# Import the guessable words list
-import eligible_guesses_list
-import eligible_solutions_list
+# Standard library imports
+from importlib import import_module
+
+# Toggle between Welsh and English Version
+selected_version = 'cymraeg'
+if selected_version == 'cymraeg':
+	initial_guess = 'buwch'
+elif selected_version == 'english':
+	initial_guess = 'cough'
+
+# Import the modules containing guessable words and eligible solutions lists
+eligible_guesses_list = import_module(f'{selected_version}.eligible_guesses_list')
+eligible_solutions_list = import_module(f'{selected_version}.eligible_solutions_list')
+
+# Extract lists from relevant modules
 eligible_guesses = eligible_guesses_list.eligible_guesses
 potential_solutions = eligible_solutions_list.potential_solutions
-
-initial_guess = 'buwch'
 
 # Loop through for up to 6 guesses
 for attempt in range(6):
     
     # Set initial worst case remaining words
 	remaining_words_wc = len(potential_solutions)
-	srmat = {}
     
     # Set a list of eligible guesses
 	candidate_guesses = eligible_guesses
     
-    # Choose 'BUWCH' as first guess
+    # Choose first guess
 	if attempt == 0:
 		candidate_guesses = [initial_guess]
 
     # Cycle through eligible guesses
 	for candidate_guess in candidate_guesses:
-         # List of patterns and solutions that would yield
-         # that pattern for a candidate guess
+        # List of patterns and solutions that would yield
+        # that pattern for a candidate guess
 		pattern_dict = {}
         
+		# Cycle through potential solutions
 		for potential_solution in potential_solutions:
+
+			# Copy potential solution to temporary variable
 			temp_ps = potential_solution
+			# Initiate match code to all zeros
 			match_code = [0] * 5
             
+			# Check if each letter is in the right place
 			for char_idx in range(5):
-                
-            # Check if letter is in the right place
 				if candidate_guess[char_idx] == temp_ps[char_idx]:
+					# Change '0' to '2'
 					match_code[char_idx] = 2
-					temp_ps = temp_ps[:char_idx] + "*" + temp_ps[char_idx+1:]
+					# Add a '*' to the string
+					temp_ps = temp_ps[:char_idx] + '*' + temp_ps[char_idx+1:]
                     
+			# Check if unmatched letters are in the solution at all
 			for char_idx in range(5):
-
-            # Check if letter is in the word at all
+            	# Check if letter is in the word at all
 				if candidate_guess[char_idx] in temp_ps and match_code[char_idx] == 0:
+					# Change '0' to '1'
 					match_code[char_idx] = 1
-					ind_app = temp_ps.find(candidate_guess[char_idx])
-					temp_ps = temp_ps[:ind_app] + "*" + temp_ps[ind_app+1:]
                     
             # Add pattern to the matrix of possible patterns
             # This happens if that pattern is absent
@@ -75,6 +88,7 @@ for attempt in range(6):
 	inp = input('Please enter the Wordle response.\n')
 	feedback = tuple(map(int, inp))
 
+	# Trivial response for first user feedback of '22222'
 	if feedback == tuple([2]*5):
 		print(f'Hole in one! The solution was {initial_guess}.')
 		break
